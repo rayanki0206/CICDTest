@@ -40,7 +40,7 @@ stages:
         displayName: 'perform unit testing'
         inputs:
           command: test
-          projects: '**/TestProject1/UnitTest1.csproj'
+          projects: '**/TestProject1.csproj'
           arguments: '/p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=./MyCoverage/'
           publishTestResults: true
 
