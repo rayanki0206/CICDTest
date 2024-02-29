@@ -6,6 +6,11 @@ trigger:
 pool:
   vmImage: 'windows-latest'
 
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
 stages:
  
 - stage: Build
@@ -35,7 +40,7 @@ stages:
         displayName: 'perform unit testing'
         inputs:
           command: test
-          projects: '**/UnitTest1.csproj'
+          projects: '**/TestProject1/UnitTest1.csproj'
           arguments: '/p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=./MyCoverage/'
           publishTestResults: true
 
