@@ -22,12 +22,6 @@ stages:
         inputs:
           packageType: 'sdk'
           version: '7.x'
-
-      - task: DotNetCoreCLI@2
-        displayName: 'Restore package'
-        inputs:
-          command: 'restore'
-          projects: '**/*.csproj'
       
       - task: DotNetCoreCLI@2
         displayName: 'Build project'
@@ -36,6 +30,12 @@ stages:
           projects: '**/*.csproj'
           arguments: '--configuration $(buildConfiguration)' 
 
+      - task: DotNetCoreCLI@2
+        displayName: 'Restore'
+        inputs:
+          command: 'restore'
+          projects: '**/*.csproj'
+          
       - task: DotNetCoreCLI@2
         displayName: 'perform unit testing'
         inputs:
@@ -48,4 +48,4 @@ stages:
         displayName: 'Publish Code Coverage Results'
         inputs:
           codeCoverageTool: 'Cobertura'
-          summaryFileLocation: '**/MyCoverage/coverage.cobertura.xml'
+          summaryFileLocation: '$(Build.SourcesDirectory)/**/MyCoverage/coverage.cobertura.xml'
