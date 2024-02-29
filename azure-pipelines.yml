@@ -1,0 +1,43 @@
+trigger:
+  branches:
+    include:
+      - master
+
+pool:
+  vmImage: 'windows-latest'
+
+stages:
+ 
+- stage: Build
+  jobs:
+    - job: Build
+      steps:
+      
+      - task: UseDotNet@2
+        inputs:
+          packageType: 'sdk'
+          version: '7.x'
+
+      - task: DotNetCoreCLI@2
+        inputs:
+          command: 'restore'
+          projects: '**/*.csproj'
+      
+      - task: DotNetCoreCLI@2
+        inputs:
+          command: build
+          projects: '**/*.csproj'
+          arguments: '--configuration $(buildConfiguration)' 
+
+      - task: DotNetCoreCLI@2
+        inputs:
+          command: test
+          projects: '**/UnitTest1.csproj'
+          arguments: '/p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=./MyCoverage/'
+          publishTestResults: true
+
+      - task: PublishCodeCoverageResults@1
+        displayName: 'Publish Code Coverage Results'
+        inputs:
+          codeCoverageTool: 'Cobertura'
+          summaryFileLocation: '$(Build.SourcesDirectory)/**/MyCoverage/coverage.cobertura.xml'
