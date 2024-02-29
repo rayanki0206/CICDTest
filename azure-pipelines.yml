@@ -6,6 +6,11 @@ trigger:
 pool:
   vmImage: 'windows-latest'
 
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
 stages:
  
 - stage: Build
@@ -17,22 +22,25 @@ stages:
         inputs:
           packageType: 'sdk'
           version: '7.x'
-
-      - task: DotNetCoreCLI@2
-        inputs:
-          command: 'restore'
-          projects: '**/*.csproj'
       
       - task: DotNetCoreCLI@2
+        displayName: 'Build project'
         inputs:
           command: build
           projects: '**/*.csproj'
           arguments: '--configuration $(buildConfiguration)' 
 
       - task: DotNetCoreCLI@2
+        displayName: 'Restore'
+        inputs:
+          command: 'restore'
+          projects: '**/*.csproj'
+          
+      - task: DotNetCoreCLI@2
+        displayName: 'perform unit testing'
         inputs:
           command: test
-          projects: '**/UnitTest1.csproj'
+          projects: '**/TestProject1.csproj'
           arguments: '/p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=./MyCoverage/'
           publishTestResults: true
 
