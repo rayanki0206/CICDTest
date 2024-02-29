@@ -377,6 +377,19 @@
             "related": ".xml"
           }
         }
+      },
+      "WebApplication1/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "compile": {
+          "bin/placeholder/WebApplication1.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/WebApplication1.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
       }
     }
   },
@@ -969,6 +982,11 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "WebApplication1/1.0.0": {
+      "type": "project",
+      "path": "../WebApplication1/WebApplication1.csproj",
+      "msbuildProject": "../WebApplication1/WebApplication1.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -977,6 +995,7 @@
       "NUnit >= 3.13.3",
       "NUnit.Analyzers >= 3.6.1",
       "NUnit3TestAdapter >= 4.4.2",
+      "WebApplication1 >= 1.0.0",
       "coverlet.collector >= 3.2.0"
     ]
   },
@@ -1012,7 +1031,11 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\OneDrive - WinWire Technologies\\Desktop\\CICD Pipelines\\WebApplication1\\WebApplication1\\WebApplication1.csproj": {
+              "projectPath": "D:\\OneDrive - WinWire Technologies\\Desktop\\CICD Pipelines\\WebApplication1\\WebApplication1\\WebApplication1.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
